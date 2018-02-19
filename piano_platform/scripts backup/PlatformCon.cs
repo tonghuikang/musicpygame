@@ -1,0 +1,162 @@
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class PlatformCon : MonoBehaviour {
+
+    public Renderer C0_rend;
+    public Renderer Db0_rend;
+    public Renderer D0_rend;
+    public Renderer Eb0_rend;
+    public Renderer E0_rend;
+    public Renderer F0_rend;
+    public Renderer Gb0_rend;
+    public Renderer G0_rend;
+    public Renderer Ab0_rend;
+    public Renderer A0_rend;
+    public Renderer Bb0_rend;
+    public Renderer B0_rend;
+    public Renderer C1_rend;
+    public Renderer Db1_rend;
+    public Renderer D1_rend;
+    public Renderer Eb1_rend;
+    public Renderer E1_rend;
+    public Renderer F1_rend;
+    public Renderer Gb1_rend;
+    public Renderer G1_rend;
+    public Renderer Ab1_rend;
+    public Renderer A1_rend;
+    public Renderer Bb1_rend;
+    public Renderer B1_rend;
+    public Renderer C2_rend;
+    public Renderer Db2_rend;
+    public Renderer D2_rend;
+    public Renderer Eb2_rend;
+    public Renderer E2_rend;
+    public Renderer F2_rend;
+    public Renderer Gb2_rend;
+    public Renderer G2_rend;
+    public Renderer Ab2_rend;
+    public Renderer A2_rend;
+    public Renderer Bb2_rend;
+    public Renderer B2_rend;
+
+    public bool C0_press;
+    public bool Db0_press;
+    public bool D0_press;
+    public bool Eb0_press;
+    public bool E0_press;
+    public bool F0_press;
+    public bool Gb0_press;
+    public bool G0_press;
+    public bool Ab0_press;
+    public bool A0_press;
+    public bool Bb0_press;
+    public bool B0_press;
+    public bool C1_press;
+    public bool Db1_press;
+    public bool D1_press;
+    public bool Eb1_press;
+    public bool E1_press;
+    public bool F1_press;
+    public bool Gb1_press;
+    public bool G1_press;
+    public bool Ab1_press;
+    public bool A1_press;
+    public bool Bb1_press;
+    public bool B1_press;
+    public bool C2_press;
+    public bool Db2_press;
+    public bool D2_press;
+    public bool Eb2_press;
+    public bool E2_press;
+    public bool F2_press;
+    public bool Gb2_press;
+    public bool G2_press;
+    public bool Ab2_press;
+    public bool A2_press;
+    public bool Bb2_press;
+    public bool B2_press;
+
+    // Use this for initialization
+    void Start () {
+        C0_rend = GetComponent<Renderer>();
+        Db0_rend = GetComponent<Renderer>();
+        D0_rend = GetComponent<Renderer>();
+        Eb0_rend = GetComponent<Renderer>();
+        E0_rend = GetComponent<Renderer>();
+        F0_rend = GetComponent<Renderer>();
+        Gb0_rend = GetComponent<Renderer>();
+        G0_rend = GetComponent<Renderer>();
+        Ab0_rend = GetComponent<Renderer>();
+        A0_rend = GetComponent<Renderer>();
+        Bb0_rend = GetComponent<Renderer>();
+        B0_rend = GetComponent<Renderer>();
+        C1_rend = GetComponent<Renderer>();
+        Db1_rend = GetComponent<Renderer>();
+        D1_rend = GetComponent<Renderer>();
+        Eb1_rend = GetComponent<Renderer>();
+        E1_rend = GetComponent<Renderer>();
+        F1_rend = GetComponent<Renderer>();
+        Gb1_rend = GetComponent<Renderer>();
+        G1_rend = GetComponent<Renderer>();
+        Ab1_rend = GetComponent<Renderer>();
+        A1_rend = GetComponent<Renderer>();
+        Bb1_rend = GetComponent<Renderer>();
+        B1_rend = GetComponent<Renderer>();
+        C2_rend = GetComponent<Renderer>();
+        Db2_rend = GetComponent<Renderer>();
+        D2_rend = GetComponent<Renderer>();
+        Eb2_rend = GetComponent<Renderer>();
+        E2_rend = GetComponent<Renderer>();
+        F2_rend = GetComponent<Renderer>();
+        Gb2_rend = GetComponent<Renderer>();
+        G2_rend = GetComponent<Renderer>();
+        Ab2_rend = GetComponent<Renderer>();
+        A2_rend = GetComponent<Renderer>();
+        Bb2_rend = GetComponent<Renderer>();
+        B2_rend = GetComponent<Renderer>();
+
+        C0_rend.enabled = false;
+        Db0_rend.enabled = false;
+        D0_rend.enabled = false;
+        Eb0_rend.enabled = false;
+        E0_rend.enabled = false;
+        F0_rend.enabled = false;
+        Gb0_rend.enabled = false;
+        G0_rend.enabled = false;
+        Ab0_rend.enabled = false;
+        A0_rend.enabled = false;
+        Bb0_rend.enabled = false;
+        B0_rend.enabled = false;
+        C1_rend.enabled = false;
+        Db1_rend.enabled = false;
+        D1_rend.enabled = false;
+        Eb1_rend.enabled = false;
+        E1_rend.enabled = false;
+        F1_rend.enabled = false;
+        Gb1_rend.enabled = false;
+        G1_rend.enabled = false;
+        Ab1_rend.enabled = false;
+        A1_rend.enabled = false;
+        Bb1_rend.enabled = false;
+        B1_rend.enabled = false;
+        C2_rend.enabled = false;
+        Db2_rend.enabled = false;
+        D2_rend.enabled = false;
+        Eb2_rend.enabled = false;
+        E2_rend.enabled = false;
+        F2_rend.enabled = false;
+        Gb2_rend.enabled = false;
+        G2_rend.enabled = false;
+        Ab2_rend.enabled = false;
+        A2_rend.enabled = false;
+        Bb2_rend.enabled = false;
+        B2_rend.enabled = false;
+    }
+	
+	// Update is called once per frame
+	void Update () {
+		
+	}
+}
