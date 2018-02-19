@@ -121,7 +121,7 @@ while running:
 		if (event.type == pygame.KEYDOWN and event.key == pygame.K_q):
 			running = False 
 	
-	all_sprites.add(octave)
+	all_sprites.add(octave_blank)
 	
 	if q.empty():
 		pass
