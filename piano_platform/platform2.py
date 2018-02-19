@@ -26,7 +26,7 @@ E_pressed.convert()
 sharp_pressed = pygame.image.load("sharp_pressed.png")
 sharp_pressed.convert()
 note_block = pygame.image.load("note_block.png")
-note_block.convert
+note_block.convert()
 
 clock = pygame.time.Clock()
 
@@ -206,7 +206,8 @@ while running:
 	all_sprites.updated()
 	keys.updated()
 	blocks.updated()
-
+	
+	print ("a loop has been finished")
 	screen.fill((0, 0, 0))	
 	pygame.display.flip()
 	clock.tick(40)

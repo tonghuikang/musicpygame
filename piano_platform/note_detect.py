@@ -145,10 +145,10 @@ def note_detect(chunksize=2048, tempo_res=32):
 			# make an array consists of 4096 entries if there is an onset
 			if onset != -1:
 				signal_input = frames[2048+64*i, 4096+96*i]
-			
+				print("find onset")
 				# cqt function 
 				output = cqt_function(signal_input)
-						
+				print("output secured")
 				# convert number into note
 				for i in range(len(output)):
 					if output[i] == 1:
