@@ -45,8 +45,8 @@ def note_detect(chunksize=2048, tempo_res=32):
 			
 			# onset function
 			onset = -1
-			difference = np.cumsum(np.add(np.absolute(signal_3[chunksize:-chunksize]), -np.absolute(signal_3[:-2*chunksize]))
-			noise = np.array(np.random.randn(len(difference))) * 10
+			difference = np.cumsum(np.add(np.absolute(signal_3[chunksize:-chunksize]), -np.absolute(signal_3[:-2*chunksize])))
+			noise = 10 * np.array(np.random.randn(len(difference)))
 			difference = np.add(difference, noise)
 			roceff = np.full(tempo_res, 0.)
 			tempo_num = int(chunksize / tempo_res)
@@ -94,7 +94,7 @@ def note_detect(chunksize=2048, tempo_res=32):
 					if notesrum[index-1]<notesrum[index] and notesrum[index+1] < notesrum[index]:
 						notesrum_peak_only[index]=notesrum[index]
 						
-				 notesrum_peak_only_sum = sum(notesrum_peak_only)
+                notesrum_peak_only_sum = sum(notesrum_peak_only)
 
 				for x in range(bins):
 					if known_octave[x]/notesrum_peak_only_sum < 0.1: 
