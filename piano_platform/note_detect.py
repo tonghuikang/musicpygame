@@ -175,5 +175,5 @@ def note_detect(chunksize=2048, tempo_res=32):
 						output[i] = "Bb"
 					if output[i] == 12:
 						output[i] = "B"
-					
+				print(output)	
 				q.put({"Note": output})

@@ -121,7 +121,7 @@ while running:
 		if (event.type == pygame.KEYDOWN and event.key == pygame.K_q):
 			running = False 
 	
-	all_sprites.add(octave_blank)
+	# all_sprites.add(octave_blank)
 	
 	if q.empty():
 		pass
@@ -203,11 +203,12 @@ while running:
 				blocks.add(o)
 				keys.add(b_key)
 				
-	all_sprites.updated()
-	keys.updated()
-	blocks.updated()
 	
-	print ("a loop has been finished")
+	keys.update()
+	blocks.update()
+	all_sprites.update()
+
+	# print ("a loop has been finished")
 	screen.fill((0, 0, 0))	
 	pygame.display.flip()
 	clock.tick(40)

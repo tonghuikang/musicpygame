@@ -2,3 +2,6 @@
 *.pyc
 piano_platform/__pycache__/note_detect.cpython-36.pyc
 piano_platform/__pycache__/platform.cpython-36.pyc
+*.pyc
+piano_platform/__pycache__/note_detect.cpython-36.pyc
+*.pyc
