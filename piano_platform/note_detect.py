@@ -134,6 +134,7 @@ def note_detect(chunksize=2048, tempo_res=32):
 			
 			# onset function
 			onset = detect_onset(signal)
+            print("finding onset")
 
 			# remove the oldest frame
 			frames.pop(0)
@@ -141,10 +142,10 @@ def note_detect(chunksize=2048, tempo_res=32):
 			# make an array consists of 4096 entries if there is an onset
 			if onset != -1:
 				signal_input = frames[2048+64*onset:6144+64*onset]
-				print("find onset")
+				print("onset detected")
 				# cqt function 
 				output = cqt_function(signal_input)
-				print("output secured")
+				print(output)
 				# convert number into note
 				for i in range(len(output)):
 					if output[i] == 1:
