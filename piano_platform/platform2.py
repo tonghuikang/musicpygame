@@ -122,12 +122,14 @@ while running:
 			running = False 
 	
 	# all_sprites.add(octave_blank)
+	print("running")
 	
 	if q.empty():
 		pass
 		
 	else:
 		# get note_list from note_detect
+		print("getting note")
 		b = q.get()
 		note_list = b["Note"] 
 		for note in note_list:
