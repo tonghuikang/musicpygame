@@ -15,12 +15,12 @@ parser.add_argument("-input", required=False, type=int, help="Audio Input Device
 args = parser.parse_args()
 
 if args.input is None:
-	print("No input device specified. Printing list of input devices now: ")
-	p = pyaudio.PyAudio()
-	for i in range(p.get_device_count()):
-		print("Device number (%i): %s" % (i, p.get_device_info_by_index(i).get('name')))
-		print("Run this program with -input 1, or the number of the input you'd like to use.")
-		exit()
+    print("No input device specified. Printing list of input devices now: ")
+    p = pyaudio.PyAudio()
+    for i in range(p.get_device_count()):
+        print("Device number (%i): %s" % (i, p.get_device_info_by_index(i).get('name')))
+        print("Run this program with -input 1, or the number of the input you'd like to use.")
+        exit()
 
 p = pyaudio.PyAudio()
 
@@ -52,6 +52,7 @@ def detect_onset(signal, chunksize=2048, tempo_res=32):
             
 def cqt_function(signal_to_ayse): # input in 4096 entries long
     length = len(signal_to_ayse)
+    print("length")
 
     freq_domain = np.fft.fft(signal_to_ayse)
 
@@ -118,60 +119,62 @@ def cqt_function(signal_to_ayse): # input in 4096 entries long
     return output
 
 def note_detect(chunksize=2048, tempo_res=32):
-	print("opening")
-	frames = []
-	i = 0
+    print("opening")
+    frames = []
+    i = 0
 
-	while True:
-		# assume pyaudio clip mono sound
-		
-		i += 1
-		data = stream.read(chunksize, exception_on_overflow=False)
-		data = np.fromstring(data, np.float32)
-		frames.append(data)
-		
-		if i > 4:
-			signal = np.concatenate((frames[-4],frames[-3],frames[-2],frames[-1]))
-			
-			# onset function
-			onset = detect_onset(signal)
-			print("finding onset")
-			
-			# remove the oldest frame
-			frames.pop(0)
-			
-			# make an array consists of 4096 entries if there is an onset
-			if onset != -1:
-				signal_input = frames[2048+64*onset:6144+64*onset]
-				print("onset detected")
-				# cqt function 
-				output = cqt_function(signal_input)
-				print(output)
-				# convert number into note
-				for i in range(len(output)):
-					if output[i] == 1:
-						output[i] = "C"
-					if output[i] == 2:
-						output[i] = "Db"
-					if output[i] == 3:
-						output[i] = "D"
-					if output[i] == 4:
-						output[i] = "Eb"
-					if output[i] == 5:
-						output[i] = "E"
-					if output[i] == 6:
-						output[i] = "F"
-					if output[i] == 7:
-						output[i] = "Gb"
-					if output[i] == 8:
-						output[i] = "G"
-					if output[i] == 9:
-						output[i] = "Ab"
-					if output[i] == 10:
-						output[i] = "A"
-					if output[i] == 11:
-						output[i] = "Bb"
-					if output[i] == 12:
-						output[i] = "B"
-				print(output)	
-				q.put({"Note": output})
+    while True:
+        # assume pyaudio clip mono sound
+        
+        i += 1
+        data = stream.read(chunksize, exception_on_overflow=False)
+        data = np.fromstring(data, np.float32)
+        frames.append(data)
+        print(len(frames))
+        
+        if i > 10:
+            signal = np.concatenate((frames[-4],frames[-3],frames[-2],frames[-1]))
+            
+            # onset function
+            print(len(signal))
+            print("finding onset")
+            onset = detect_onset(signal)
+            
+            # remove the oldest frame
+            frames[:] = frames[:-6]
+            
+            # make an array consists of 4096 entries if there is an onset
+            if onset != -1:
+                signal_input = frames[2048+64*onset:6144+64*onset]
+                print("onset detected")
+                # cqt function 
+                output = cqt_function(signal_input)
+                print(output)
+                # convert number into note
+                for i in range(len(output)):
+                    if output[i] == 1:
+                        output[i] = "C"
+                    if output[i] == 2:
+                        output[i] = "Db"
+                    if output[i] == 3:
+                        output[i] = "D"
+                    if output[i] == 4:
+                        output[i] = "Eb"
+                    if output[i] == 5:
+                        output[i] = "E"
+                    if output[i] == 6:
+                        output[i] = "F"
+                    if output[i] == 7:
+                        output[i] = "Gb"
+                    if output[i] == 8:
+                        output[i] = "G"
+                    if output[i] == 9:
+                        output[i] = "Ab"
+                    if output[i] == 10:
+                        output[i] = "A"
+                    if output[i] == 11:
+                        output[i] = "Bb"
+                    if output[i] == 12:
+                        output[i] = "B"
+                print(output)    
+                q.put({"Note": output})
