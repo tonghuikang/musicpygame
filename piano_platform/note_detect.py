@@ -35,7 +35,7 @@ q = queue.Queue()
 # the input is 2048 entry * 3
 def detect_onset(signal, chunksize=2048, tempo_res=32):
     onset = -1
-	
+    
     difference = np.cumsum(np.add(np.absolute(signal[chunksize:-chunksize]), -np.absolute(signal[:-2*chunksize])))
     noise = 10*np.array(np.random.randn(len(difference)))
     difference = np.add(difference, noise)
@@ -47,9 +47,9 @@ def detect_onset(signal, chunksize=2048, tempo_res=32):
                                       np.arange(chunksize))[0, 1]
         if roceff[0] < 0.8 and roceff[i] > 0.8 and np.max(roceff[:i]) < 0.8:
             onset = i
-    
-    return onset # -1 or a value
 
+    return onset # none, or a value
+            
 def cqt_function(signal_to_ayse): # input in 4096 entries long
     length = len(signal_to_ayse)
 
@@ -58,26 +58,18 @@ def cqt_function(signal_to_ayse): # input in 4096 entries long
     bins = 36
     freq_ref_notes = [261.625565 * (2. ** (n/36. + 4./72.)) for n in range(bins)]
 
-
     bell_curves = []
-
     for note in range(len(freq_ref_notes)):
-        
         bell_curve = np.exp(-((np.arange(-1.,1.,2./length))*(2. ** (note/36.)))**2.)
-        
         bell_curves.append(bell_curve) 
-		
+
     kernels = []
-
     for note in range(36):
-
-        kernel = []
-
-        kernels.append(np.multiply(np.exp((np.arange(length)-length/2.)*-1.j*2.*math.pi*freq_ref_notes[note]/44100.)
-                                  ,bell_curves[note] ))
+        kernels.append(np.multiply(np.exp((np.arange(length)-length/2.)*-1.j*2.*np.pi*freq_ref_notes[note]/44100.)
+                                  ,bell_curves[note]  # windowing
+                            ))
 
     fft_kernels = []
-
     for note in range(bins):
         fft_kernels.append(np.fft.fft(kernels[note]))
 
@@ -99,6 +91,7 @@ def cqt_function(signal_to_ayse): # input in 4096 entries long
         if notesrum[index-1] < notesrum[index] and notesrum[index+1] < notesrum[index]:
             notesrum_peak_only[index]=notesrum[index]
 
+    # known_octave = notesrum_peak_only[12:12+36]
     known_octave = notesrum_peak_only[:]
     
     notesrum_peak_only_sum = sum(notesrum_peak_only)
@@ -113,7 +106,7 @@ def cqt_function(signal_to_ayse): # input in 4096 entries long
                              +known_octave[3*notes+1]
                              +known_octave[3*notes+2])
 
-    notestrum_sum = sum(notesrum)
+    # notestrum_sum = sum(notesrum)  # alternate demoninator to calc threshold
     notesrum_peak_only_sum = sum(notesrum_peak_only)
 
     output = []
@@ -126,25 +119,28 @@ def cqt_function(signal_to_ayse): # input in 4096 entries long
 
 def note_detect(chunksize=2048, tempo_res=32):
 	frames = []
-	
+	i = 0
+
 	while True:
 		# assume pyaudio clip mono sound
-		data = stream.read(chunksize)
+		
+		i += 1
+		data = stream.read(chunksize, exception_on_overflow=False)
 		data = np.fromstring(data, np.float32)
 		frames.append(data)
 		
-		if len(frames) == 4:
-			signal_3 = frames[0] + frames[1] + frames[2]
+		if i > 4:
+			signal = np.concatenate(frames[-4],frames[-3],frames[-2],frames[-1])
 			
 			# onset function
-			onset = detect_onset(signal_3)
+			onset = detect_onset(signal)
 
 			# remove the oldest frame
-			frames.pop(-1)
+			frames.pop(0)
 			
 			# make an array consists of 4096 entries if there is an onset
 			if onset != -1:
-				signal_input = frames[2048+64*i, 4096+96*i]
+				signal_input = frames[2048+64*onset:6144+64*onset]
 				print("find onset")
 				# cqt function 
 				output = cqt_function(signal_input)
