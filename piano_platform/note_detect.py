@@ -131,7 +131,7 @@ def note_detect(chunksize=2048, tempo_res=32):
 		frames.append(data)
 		
 		if i > 4:
-			signal = np.concatenate(frames[-4],frames[-3],frames[-2],frames[-1])
+			signal = np.concatenate((frames[-4],frames[-3],frames[-2],frames[-1]))
 			
 			# onset function
 			onset = detect_onset(signal)
