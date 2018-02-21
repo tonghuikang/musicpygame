@@ -37,7 +37,7 @@ def detect_onset(signal, chunksize=2048, tempo_res=32):
     onset = -1
     
     difference = np.cumsum(np.add(np.absolute(signal[chunksize:-chunksize]), -np.absolute(signal[:-2*chunksize])))
-    noise = 10*np.array(np.random.randn(len(difference)))
+    noise = 100*np.array(np.random.randn(len(difference)))
     difference = np.add(difference, noise)
     
     roceff = np.full(tempo_res, 0.)
@@ -132,21 +132,24 @@ def note_detect(chunksize=2048, tempo_res=32):
         frames.append(data)
         print(len(frames))
         
-        if i > 10:
+        if i > 10 and len(frames)>4:
             signal = np.concatenate((frames[-4],frames[-3],frames[-2],frames[-1]))
             
             # onset function
             print(len(signal))
             print("finding onset")
             onset = detect_onset(signal)
+            print("onset detected")
+            print(onset)
             
-            # remove the oldest frame
-            frames[:] = frames[:-6]
+            # remove the older frames
+            frames[:] = frames[-4:]
             
             # make an array consists of 4096 entries if there is an onset
             if onset != -1:
                 signal_input = frames[2048+64*onset:6144+64*onset]
-                print("onset detected")
+                onset = -1 # set onset back to negative one - but necessary?
+
                 # cqt function 
                 output = cqt_function(signal_input)
                 print(output)
