@@ -122,7 +122,7 @@ while running:
 			running = False 
 	
 	# all_sprites.add(octave_blank)
-	print("running")
+	# print("running")
 			
 	if not q.empty():
 		# get note_list from note_detect

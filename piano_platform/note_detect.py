@@ -130,7 +130,7 @@ def note_detect(chunksize=2048, tempo_res=32):
         data = stream.read(chunksize, exception_on_overflow=False)
         data = np.fromstring(data, np.float32)
         frames.append(data)
-        print(len(frames))
+        # print(len(frames))
         
         if i > 10 and len(frames)>4:
             signal = np.concatenate((frames[-4],frames[-3],frames[-2],frames[-1]))
