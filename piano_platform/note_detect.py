@@ -118,6 +118,7 @@ def cqt_function(signal_to_ayse): # input in 4096 entries long
     return output
 
 def note_detect(chunksize=2048, tempo_res=32):
+	print("opening")
 	frames = []
 	i = 0
 
@@ -134,8 +135,8 @@ def note_detect(chunksize=2048, tempo_res=32):
 			
 			# onset function
 			onset = detect_onset(signal)
-            print("finding onset")
-
+			print("finding onset")
+			
 			# remove the oldest frame
 			frames.pop(0)
 			
