@@ -136,17 +136,18 @@ def note_detect(chunksize=2048, tempo_res=32):
             signal = np.concatenate((frames[-4],frames[-3],frames[-2],frames[-1]))
             
             # onset function
-            print(len(signal))
-            print("finding onset")
+            # print(len(signal))
+            # print("finding onset")
             onset = detect_onset(signal)
-            print("onset detected")
-            print(onset)
+            # print("onset detection complete")
+            # print(onset)
             
             # remove the older frames
             frames[:] = frames[-4:]
             
             # make an array consists of 4096 entries if there is an onset
             if onset != -1:
+                print("onset DETECTED")
                 signal_input = frames[2048+64*onset:6144+64*onset]
                 onset = -1 # set onset back to negative one - but necessary?
 
