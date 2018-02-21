@@ -35,7 +35,7 @@ running = True
 #title_font
 #note_font
 
-t = Thread(target = note_detect)
+t = Thread(target=note_detect)
 t.daemon = True
 t.start()
 
@@ -116,21 +116,19 @@ class sharp_key(pygame.sprite.Sprite):
 
 while running:
 	for event in pygame.event.get():
-		if (event.type == pygame.QUIT):
+		if event.type == pygame.QUIT:
 			running = False
-		if (event.type == pygame.KEYDOWN and event.key == pygame.K_q):
+		if event.type == pygame.KEYDOWN and event.key == pygame.K_q:
 			running = False 
 	
 	# all_sprites.add(octave_blank)
 	print("running")
-	
-	if q.empty():
-		pass
-		
-	else:
+			
+	if not q.empty():
 		# get note_list from note_detect
 		print("getting note")
 		b = q.get()
+		print(b)
 		note_list = b["Note"] 
 		for note in note_list:
 			if (note == "C"):
