@@ -1,20 +1,28 @@
-from threading import Thread
 import pygame
 import sys
+# from note_detect import q, note_detect
+from threading import Thread
 
-from note_detect import q, note_detect
-
+# pygame initiate
 pygame.init()
 pygame.mixer.init()
 
+# initiate threading
+#t = Thread(target=get_current_note)
+#t.daemon = True
+#t.start()
+
+# sprite groups
 all_sprites = pygame.sprite.Group()
 keys = pygame.sprite.Group()
 blocks = pygame.sprite.Group()  
 
+# setting up screen 
 screen_width, screen_height = 512, 256
 screen = pygame.display.set_mode((screen_width, screen_height))
 pygame.display.set_caption("Piano platform")
 
+# import images
 octave_blank = pygame.image.load("octave.png")
 octave_blank.convert()
 C_pressed = pygame.image.load("C_pressed.png")
@@ -26,7 +34,7 @@ E_pressed.convert()
 sharp_pressed = pygame.image.load("sharp_pressed.png")
 sharp_pressed.convert()
 note_block = pygame.image.load("note_block.png")
-note_block.convert()
+note_block.convert
 
 clock = pygame.time.Clock()
 
@@ -35,11 +43,15 @@ running = True
 #title_font
 #note_font
 
-t = Thread(target=note_detect)
-t.daemon = True
-t.start()
+#if not q.empty():
+	#b = q.get()
+	#note_list = b["Note"]
 
-note_list = []
+#if q.empty():
+	#note_list = []
+
+# test
+note_list = ["C", "D"]
 
 class autoMove_block(pygame.sprite.Sprite):
 	def __init__(self, x, y):
@@ -47,8 +59,7 @@ class autoMove_block(pygame.sprite.Sprite):
 		self.image = note_block
 		self.rect = self.image.get_rect()
 		self.rect.x = x
-		self.rect.y = y
-		
+		self.rect.y = y		
 	def update(self):
 		if (self.rect.x > 512):
 			self.kill()
@@ -116,20 +127,18 @@ class sharp_key(pygame.sprite.Sprite):
 
 while running:
 	for event in pygame.event.get():
-		if event.type == pygame.QUIT:
+		if (event.type == pygame.QUIT):
 			running = False
-		if event.type == pygame.KEYDOWN and event.key == pygame.K_q:
+		if (event.type == pygame.KEYDOWN and event.key == pygame.K_q):
 			running = False 
 	
-	# all_sprites.add(octave_blank)
-	# print("running")
-			
-	if not q.empty():
-		# get note_list from note_detect
-		print("getting note")
-		b = q.get()
-		print(b)
-		note_list = b["Note"] 
+	octave = Octave()
+	all_sprites.add(octave)
+	
+	if note_list == []:
+		pass
+		
+	else:
 		for note in note_list:
 			if (note == "C"):
 				o = autoMove_block(150, 0)
@@ -203,13 +212,14 @@ while running:
 				blocks.add(o)
 				keys.add(b_key)
 				
-	
+	all_sprites.update()
 	keys.update()
 	blocks.update()
-	all_sprites.update()
 
-	# print ("a loop has been finished")
 	screen.fill((0, 0, 0))	
+	all_sprites.draw(screen)
+	keys.draw(screen)
+	blocks.draw(screen)
 	pygame.display.flip()
 	clock.tick(40)
 
