@@ -20,9 +20,7 @@ if args.input is None:
         print("Run this program with -input 1, or the number of the input you'd like to use.")
         exit()
 
-
 p = pyaudio.PyAudio()
-		
 stream = p.open(format=pyaudio.paFloat32,
 channels=1, rate=44100, input=True,
 input_device_index=args.input, frames_per_buffer=chunksize)
@@ -34,21 +32,23 @@ time.sleep(1)
 def detect_onset(signal, chunksize=2048, tempo_res=32):
     onset = -1
     difference = np.cumsum(np.add(np.absolute(signal[chunksize:-chunksize]), -np.absolute(signal[:-2*chunksize])))
-    noise = 100*np.array(np.random.randn(len(difference)))
+    noise = 10*np.array(np.random.randn(len(difference)))
     difference = np.add(difference, noise)
     roceff = np.full(tempo_res, 0.)
     tempo_num = int(chunksize / tempo_res)
     for i in range(tempo_res):
         roceff[i] = np.corrcoef(difference[i * tempo_num:(i * tempo_num + chunksize)],
                                       np.arange(chunksize))[0, 1]
+        if i == 0 and roceff[0] > 0.8:
+            onset = i
         if roceff[0] < 0.8 and roceff[i] > 0.8 and np.max(roceff[:i]) < 0.8:
             onset = i
-
+    # print(np.max(roceff))
     return onset # none, or a value
             
 def cqt_function(signal_to_ayse): # input in 4096 entries long
     length = len(signal_to_ayse)
-    print("length")
+    print(length)
 
     freq_domain = np.fft.fft(signal_to_ayse)
 
@@ -83,6 +83,7 @@ def cqt_function(signal_to_ayse): # input in 4096 entries long
     notesrum = cqt_resp
 
     notesrum_peak_only = [0.0]*len(notesrum)
+    notesrum_sum = sum(notesrum)
 
     for index in range(bins-1)[1:]:
         if notesrum[index-1] < notesrum[index] and notesrum[index+1] < notesrum[index]:
@@ -94,7 +95,7 @@ def cqt_function(signal_to_ayse): # input in 4096 entries long
     notesrum_peak_only_sum = sum(notesrum_peak_only)
 
     for x in range(bins):
-        if known_octave[x]/notesrum_peak_only_sum < 0.1: 
+        if known_octave[x]/notesrum_sum < 0.1: 
             known_octave[x] = 0
         
     known_octave_notes = []
@@ -104,6 +105,8 @@ def cqt_function(signal_to_ayse): # input in 4096 entries long
                              +known_octave[3*notes+2])
 
     # notestrum_sum = sum(notesrum)  # alternate demoninator to calc threshold
+    print(np.round(known_octave_notes,2))
+
     notesrum_peak_only_sum = sum(notesrum_peak_only)
 
     output = []
@@ -129,10 +132,11 @@ def note_detect(chunksize=2048, tempo_res=32):
         # print(len(frames))
         
         if i > 10 and len(frames)>4:
+            frames[:] = frames[-4:]
             signal = np.concatenate((frames[-4],frames[-3],frames[-2],frames[-1]))
-			
+
             # onset function
-            print(np.sum(abs(signal)))
+            # print(np.sum(abs(signal)))
             # print(len(signal))
             # print("finding onset")
             onset = detect_onset(signal)
@@ -140,12 +144,12 @@ def note_detect(chunksize=2048, tempo_res=32):
             # print(onset)
             
             # remove the older frames
-            frames[:] = frames[-4:]
+            
             
             # make an array consists of 4096 entries if there is an onset
             if onset != -1:
                 print("onset DETECTED")
-                signal_input = frames[2048+64*onset:6144+64*onset]
+                signal_input = signal[2048+64*onset:6144+64*onset]
                 onset = -1 # set onset back to negative one - but necessary?
 
                 # cqt function 
