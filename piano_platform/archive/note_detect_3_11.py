@@ -31,6 +31,9 @@ channels=1, rate=44100, input=True,
 input_device_index=args.input, frames_per_buffer=chunksize)
 time.sleep(1)
 
+# threading
+q = queue.Queue()
+
 def detect_onset(signal, chunksize=2048, tempo_res=32, plotting = False):
     '''
     # this is to be called at the end of every chunk (2048 entries), starting from 4th chunk

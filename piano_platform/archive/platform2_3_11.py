@@ -8,7 +8,7 @@ pygame.init()
 pygame.mixer.init()
 
 # initiate threading
-t = Thread(target=get_current_note)
+t = Thread(target=note_detect)
 t.daemon = True
 t.start()
 
