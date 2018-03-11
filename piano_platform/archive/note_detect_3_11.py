@@ -215,7 +215,7 @@ def note_detect(chunksize=2048, tempo_res=32, plotting = False):
         data = stream.read(chunksize, exception_on_overflow=False)
         data = np.fromstring(data, np.float32)
         frames.append(data)
-        # print(len(frames))
+        print(len(frames))
         
         # start listening only after there is a certain number of "frames"
         if i > 10 and len(frames)>4:
@@ -242,7 +242,7 @@ def note_detect(chunksize=2048, tempo_res=32, plotting = False):
 
                 # cqt function 
                 output = cqt_function(signal_input)
-                # print(output)
+                print(output)
                 # convert number into note - why not just give numbers to your game?
                 for i in range(len(output)):
                     if output[i] == 1:
@@ -269,8 +269,10 @@ def note_detect(chunksize=2048, tempo_res=32, plotting = False):
                         output[i] = "Bb"
                     if output[i] == 12:
                         output[i] = "B"
-                # print(output)    
+                print(output)    
     
     # don't you need to return something?
     q.put({"Note": output})
     
+if __name__ == "__main__":
+	note_detect()
