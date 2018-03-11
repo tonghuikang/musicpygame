@@ -1,6 +1,8 @@
 import pyaudio
 import argparse
 
+import queue
+
 import numpy as np
 import time
 # import matplotlib.pyplot as plt
@@ -198,7 +200,7 @@ def cqt_function(signal_to_ayse, plotting = False):
     return output
 
 def note_detect(chunksize=2048, tempo_res=32, plotting = False):
-    print("opening")
+    # print("opening")
     frames = []
     i = 0
 
@@ -230,14 +232,14 @@ def note_detect(chunksize=2048, tempo_res=32, plotting = False):
             
             # make an array consists of 4096 entries if there is an onset
             if onset != -1:
-                print("onset DETECTED")
+                # print("onset DETECTED")
                 signal_ = np.concatenate((frames[-4],frames[-3],frames[-2],frames[-1]))
                 signal_input = signal_[2048+64*onset:6144+64*onset]
                 onset = -1 # set onset back to negative one - but necessary?
 
                 # cqt function 
                 output = cqt_function(signal_input)
-                print(output)
+                # print(output)
                 # convert number into note - why not just give numbers to your game?
                 for i in range(len(output)):
                     if output[i] == 1:
@@ -264,9 +266,8 @@ def note_detect(chunksize=2048, tempo_res=32, plotting = False):
                         output[i] = "Bb"
                     if output[i] == 12:
                         output[i] = "B"
-                print(output)    
+                # print(output)    
     
     # don't you need to return something?
+    q.put({"Note": output})
     
-    
-note_detect()
