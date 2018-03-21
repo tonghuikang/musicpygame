@@ -131,4 +131,3 @@ while running:
 	clock.tick(40)
 
 pygame.display.quit()
-		
