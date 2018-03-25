@@ -62,7 +62,7 @@ class autoMove_block():
 		self.pos_y = position_y
 
 	def move(self):
-		self.pos_x += 4
+		self.pos_x += 2
 
 frames = []
 i = 0
