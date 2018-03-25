@@ -157,7 +157,7 @@ while running:
 
 			elif (note == "D"):
 				screen.blit(D_pressed, (2, 36))
-				o = autoMove_block(note_block, (150, 36))
+				o = autoMove_block(150, 36)
 				objects.append(o)
 
 			elif (note == "Eb"):
