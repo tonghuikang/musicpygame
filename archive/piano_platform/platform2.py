@@ -59,7 +59,7 @@ class autoMove_block(pygame.sprite.Sprite):
 		self.image = note_block
 		self.rect = self.image.get_rect()
 		self.rect.x = x
-		self.rect.y = y		
+		self.rect.y = y
 	def update(self):
 		if (self.rect.x > 512):
 			self.kill()
@@ -136,7 +136,9 @@ while running:
 	all_sprites.add(octave)
 	
 	if note_list == []:
-		note_lsit == ["G", "A"]
+		pass
+		
+	else:
 		for note in note_list:
 			if (note == "C"):
 				o = autoMove_block(150, 0)
@@ -214,7 +216,7 @@ while running:
 	keys.update()
 	blocks.update()
 
-	screen.fill((0, 0, 0))	
+	screen.fill((0, 0, 0))
 	all_sprites.draw(screen)
 	keys.draw(screen)
 	blocks.draw(screen)
@@ -222,4 +224,3 @@ while running:
 	clock.tick(40)
 
 pygame.quit()
-		

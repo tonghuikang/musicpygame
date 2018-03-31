@@ -47,10 +47,10 @@ def note_detect(chunksize=2048, tempo_res=32):
 			signal_4 = signal_3 + frames[3]
 			
 			# find the onset point
-			difference = np.cumsum(np.add(np.absolute(signal_3[chunksize:-chunksize]), -np.absolute(signal_3[:-2*chunksize]))
+			difference = np.cumsum(np.add(np.absolute(signal_3[chunksize:-chunksize]), -np.absolute(signal_3[:-2*chunksize])))
 			noise = 10 * np.array(np.random.randn(len(difference)))
 			difference = np.add(difference, noise)
-			roceff = np.full(tempo_res, 0.) 
+			roceff = np.full(tempo_res, 0.)
 			tempo_num = int(chunksize / tempo_res)
 			for i in range(tempo_res):
 				roceff[i] = np.corrcoef(difference[i * tempo_num:(i * tempo_num + chunksize)], np.arange(chunksize))[0, 1]

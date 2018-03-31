@@ -136,9 +136,7 @@ while running:
 	all_sprites.add(octave)
 	
 	if note_list == []:
-		pass
-		
-	else:
+		note_lsit == ["G", "A"]
 		for note in note_list:
 			if (note == "C"):
 				o = autoMove_block(150, 0)
@@ -224,4 +222,3 @@ while running:
 	clock.tick(40)
 
 pygame.quit()
-		
