@@ -1,27 +1,36 @@
 from midiutil.MidiFile import MIDIFile
 from itertools import combinations
 
-scale = 4 #for scale=4 it means C4
-no_of_notes = 4 #play 4 notes at the same time
+scales = range(1,5) #C1 to C4
+no_of_notes = range(2, 5) #2 notes to 4 notes
 
-pitch = range(12*(scale+1), 12*(scale+2))
-comb = [x for x in combinations(pitch, no_of_notes)]
-track = range(no_of_notes)
 channel = 0
 time = 0
 duration = 2
 tempo = 100
 volume = 100
 
-count = 0	
-for com in comb:
+for scale in scales:
+	for no_ in no_of_notes:
+		pitch = range(12*(scale+1), 12*(scale+2))
+		comb = [x for x in combinations(pitch, no_)]
+		track = range(no_)
+		
+		count = 0	
+		for com in comb:
 
-    mf = MIDIFile(no_of_notes)
+			mf = MIDIFile(no_)
 
-    for num in range(no_of_notes):
-        mf.addNote(track[num], channel, com[num], time, duration, volume)
+			for num in range(no_):
+				mf.addNote(track[num], channel, com[num], time, duration, volume)
+    
+			code = []
+			for num in com:
+				code.append(num)
+			while len(code) < 4:
+				code.append("x")
+				
+			with open("files\C{}_{}_{}_{}_{}.mid".format(scale, code[0], code[1], code[2], code[3]), "wb") as outf:
+				mf.writeFile(outf)
 
-    with open("files\{:d}_notes_C{:d}_{:d}.mid".format(no_of_notes, scale, count), "wb") as outf:
-        mf.writeFile(outf)
-
-    count += 1
+			count += 1
