@@ -21,19 +21,24 @@ We assume that
 Contains files for the note detection game to run. It has been proven to work with the live microphone. Right now it requires better note evaluation algorithms. We hope to deliver a game that could be run on RPi at the end of the project.
 
 - [ ] Write installation requirements
+- [ ] Decide whether to use the terminology `chunk` and how often do we calculate rcoeff.
+- [ ] 
 
 ## [/note_evaluation](/note_evaluation) 
-Contains tests the different evaluation functions that we propose. The candidate note is inside `note_evaluation_accuracy.ipynb`. We also have `note_evaluation_helper.py` containing the helper functions and that generates midi file and soundfiles (through fluidsynth) and deletes them later. Similar functions also exist in `soundfile_generator.ipynb` when we want to make `.wav` files for exportation into a computer that cannot run fluidsynth.
+Contains the test for the different evaluation functions that we propose. We also have `note_evaluation_helper.ipynb` containing the helper functions and that generates midi file and soundfiles (through fluidsynth) and deletes them later by default. The candidate note evaluation functions are inside `note_evaluation_accuracy.ipynb` and 
 
 - [ ] Make make LG's regression into a function
 - [ ] Make a function to calculate accuracy in `soundfile_generator.ipynb`
 - [ ] Copy and make a `note_evaluation_helper.py`
 
-### [/../midifile_sch](/../midifile_sch)
+### [/../midifile_sch](/note_evaluation/midifile_sch)
 A folder to contain midifiles `.mid` that is generated and destroyed after generation. 
 
-### [/../soundfile_sch](/../soundfile_sch)
+### [/../soundfile_sch](/note_evaluation/soundfile_sch)
 A folder to contain soundfiles `.wav` that is generated and destroyed after generation. 
+
+### [/../soundfile_template](/note_evaluation/soundfile_template)
+A folder to contain soundfiles `.wav` with one note only. These are necessary for Lin Geng's regression algorithm.
 
 ## [/meeting_notes](/meeting_notes)
 Contains the recordings of the meeting, and perhaps email updates. 
