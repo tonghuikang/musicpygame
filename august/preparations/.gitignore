@@ -1,7 +1,7 @@
-label/*
+labels/*
 midi/*
-notes/*
-spectrogram/*
+note/*
+spectrograms/*
 wav/*
 wav_processed/*
 
