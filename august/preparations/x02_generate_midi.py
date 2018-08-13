@@ -19,7 +19,7 @@ def generate_midi_file(sound_id, time_array, note_array):
     for i in range(len(time_array)):
         track = (track + 1) % 5
         
-        pitch = 60 + note_array[i]             # C4 (middle C)
+        pitch = 12 + note_array[i]             # C4 (middle C)
         time = time_array[i]                   # start on beat 0
         duration = np.random.uniform(0.8,0.9)
         volume = np.random.randint(50,100)     # 1 beat long
