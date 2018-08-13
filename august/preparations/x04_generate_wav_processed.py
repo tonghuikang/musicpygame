@@ -11,11 +11,11 @@ from pysndfx import AudioEffectsChain
 def process_wav(filename, save_location):
     fx = (
     AudioEffectsChain()
-    .highshelf()
-    .reverb()
-    .phaser()
-    .delay()
-    .lowshelf()
+#     .highshelf()
+    .reverb(40)
+#     .phaser()
+#     .delay()
+#     .lowshelf()
     )
     
     fx(filename, save_location + (filename.split("/")[-1]).split(".")[0] + '.wav')
