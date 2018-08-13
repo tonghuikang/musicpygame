@@ -12,7 +12,7 @@ def process_wav(filename, save_location):
     fx = (
     AudioEffectsChain()
 #     .highshelf()
-    .reverb(40)
+    .reverb(20)
 #     .phaser()
 #     .delay()
 #     .lowshelf()
@@ -22,7 +22,7 @@ def process_wav(filename, save_location):
 
 
 
-# def generate_wav_processed(save_location, files):
+# def process_wav(save_location, files):
 #     s = Server(duplex=0, audio='offline', winhost="asio")
 
 #     for i in files:
