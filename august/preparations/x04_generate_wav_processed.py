@@ -6,13 +6,14 @@ import glob
 # Import the package and create an audio effects chain function.
 from pysndfx import AudioEffectsChain
 
+import numpy as np
 
 
 def process_wav(filename, save_location):
     fx = (
     AudioEffectsChain()
 #     .highshelf()
-    .reverb(20)
+    .reverb(np.random.randint(40))
 #     .phaser()
 #     .delay()
 #     .lowshelf()
