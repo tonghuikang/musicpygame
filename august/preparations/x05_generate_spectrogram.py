@@ -33,4 +33,4 @@ def generate_spectrogram(filename):
 #     plt.show()
 
     filename = (filename.split("/")[-1]).split(".")[0]
-    np.save("./spectrogram/" + filename, CQT)
+    np.save("./spectrogram/" + filename, np.array(CQT, dtype='float16'))
